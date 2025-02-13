@@ -7,6 +7,8 @@ const multer = require('multer');
 const path = require('path');
 
 const app = express();
+const user = require('./models/user.js');
+console.log(user);
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -59,7 +61,8 @@ app.get('/register', (req, res) => {
 app.get('/users', async (req, res) => {
     try {
         const users = await user.findAll();
-        res.render('user');
+        res.render('user', { users });
+
     } catch (err) {
         res.status(500).send('Failed to fetch users');
     }
